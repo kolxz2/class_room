@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
                       title: Stack(
                         children: <Widget>[
                           Align(
-                            alignment:  Alignment(0.8, 0.5),
+                            alignment: const Alignment(0.8, 0.5),
                             child:
                               IconButton(
                               icon: const Icon(
@@ -65,8 +65,9 @@ class _HomeState extends State<Home> {
                               }
                               ),
                           ),
+
                           Align(
-                            alignment:  Alignment(0.8, 0.5),
+                            alignment: const Alignment(0.9, 0.5),
                             child:
                             IconButton(
                                 icon: const Icon(
@@ -74,14 +75,12 @@ class _HomeState extends State<Home> {
                                   color: Colors.red,
                                 ),
                                 onPressed: (){
-                                  setState(() {
-                                    todoList.removeAt(index);
-                                  });
+                                  _editGrades(context);
                                 }
                             ),
                           ),
                           Align(
-                            alignment:  Alignment(1, 0.5),
+                            alignment: const Alignment(1, 0.5),
                             child:
                             IconButton(
                                 icon: const Icon(
@@ -144,5 +143,28 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  void _editGrades(BuildContext context){
+    showDialog(context: context, builder: (BuildContext context){
+      return AlertDialog(
+        title: const Text(' Add name'),
+        content: TextField(
+          onChanged: (String value){
+            _userTodo = value;
+          },
+        ),
+        actions: [
+          ElevatedButton(onPressed: () {
+            setState(() {
+              todoList.add(Stud(_userTodo));
+            });
+            // после нажатия скрывает диалоговЫЕ окнА
+            Navigator.of(context).pop();
+          },
+              child: const Text("Add"))
+        ],
+      );
+    });
   }
 }
