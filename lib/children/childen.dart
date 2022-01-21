@@ -5,14 +5,11 @@ class Stud{
   int _gradesCount = 0;
 
   Stud(String name){
-    if (name.isNotEmpty) {
-      _name = name;
-    } else {
-      return;
-    }
+   _name =  name.isNotEmpty ? name : "NULL";
   }
 
-  void setGrades(List<int> grade){
+
+  set setGrades(List<int> grade){
     if (SIZE - _gradesCount >= grade.length){
       for(int i in grade) {
         if (i > 1 && i < 6) {
@@ -38,11 +35,7 @@ class Stud{
   }
 
   int getGrade(int index){
-    if (index > -1 && index <= _gradesCount) {
-      return _grades[index];
-    } else {
-      return 0;
-    }
+    return index > -1 && index <= _gradesCount ? _grades[index] : 0;
   }
 
   double getAverage (){
@@ -59,4 +52,6 @@ class Stud{
   String getName() => _name;
 
   List<int> getGrades() => _grades;
+
+
 }

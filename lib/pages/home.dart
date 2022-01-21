@@ -130,7 +130,7 @@ class _HomeState extends State<Home> {
                   // после нажатия скрывает диалоговЫЕ окнА
                   Navigator.of(context).pop();
                 },
-                child: const Text("Add"))
+                  child: const Text("Add"))
               ],
             );
           });
@@ -145,17 +145,27 @@ class _HomeState extends State<Home> {
 
   void _editGrades(BuildContext context){
 
-    List _grades = [];
+    int elementCount = 1;
+    List<Widget> _gradesView = [_templateGrade(elementCount)];
 
     showDialog(context: context, builder: (BuildContext context){
-      return SimpleDialog(
+      return
+        SimpleDialog(
+
         title: const Text("Edit student info"),
         children: <Widget>[
+          ListView(
+            children: _gradesView
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              ListView(
-                children: _grades,
+              ElevatedButton(
+                onPressed: () {
+                  ++elementCount;
+                  _gradesView.add(_templateGrade(elementCount));
+                },
+                child: const Text('Add grade'),
               ),
               ElevatedButton(
                 onPressed: () { Navigator.of(context).pop(); },
@@ -175,13 +185,13 @@ class _HomeState extends State<Home> {
     });
   }
 
-   _templateGrade(){
+   _templateGrade(elementCount){
     return Row(
       children: [
-        const Text("Grades"),
-        DropdownButton(
-            items: ['1','2'],
-            onChanged: onChanged)
+        const Text("Grades "),
+        // DropdownButton(
+        //     items: ['1','2'],
+        //     onChanged: onChanged)
       ],
     );
   }
