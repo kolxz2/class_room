@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:to_do_list/children/childen.dart';
 
@@ -146,25 +144,45 @@ class _HomeState extends State<Home> {
   }
 
   void _editGrades(BuildContext context){
+
+    List _grades = [];
+
     showDialog(context: context, builder: (BuildContext context){
-      return AlertDialog(
-        title: const Text(' Add name'),
-        content: TextField(
-          onChanged: (String value){
-            _userTodo = value;
-          },
-        ),
-        actions: [
-          ElevatedButton(onPressed: () {
-            setState(() {
-              todoList.add(Stud(_userTodo));
-            });
-            // после нажатия скрывает диалоговЫЕ окнА
-            Navigator.of(context).pop();
-          },
-              child: const Text("Add"))
-        ],
+      return SimpleDialog(
+        title: const Text("Edit student info"),
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ListView(
+                children: _grades,
+              ),
+              ElevatedButton(
+                onPressed: () { Navigator.of(context).pop(); },
+                child: const Text('Treasury department'),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              ElevatedButton(
+                onPressed: () { Navigator.of(context).pop(); },
+                child: const Text('State department'),
+              ),
+            ]
+          )
+        ]
       );
     });
+  }
+
+   _templateGrade(){
+    return Row(
+      children: [
+        const Text("Grades"),
+        DropdownButton(
+            items: ['1','2'],
+            onChanged: onChanged)
+      ],
+    );
   }
 }
