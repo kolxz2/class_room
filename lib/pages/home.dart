@@ -149,50 +149,54 @@ class _HomeState extends State<Home> {
     List<Widget> _gradesView = [_templateGrade(elementCount)];
 
     showDialog(context: context, builder: (BuildContext context){
-      return
-        SimpleDialog(
-
+      return AlertDialog(
         title: const Text("Edit student info"),
-        children: <Widget>[
-          ListView(
-            children: _gradesView
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              ++elementCount;
+              _gradesView.add(_templateGrade(elementCount));
+            },
+            child: const Text('Add grade'),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  ++elementCount;
-                  _gradesView.add(_templateGrade(elementCount));
-                },
-                child: const Text('Add grade'),
-              ),
-              ElevatedButton(
-                onPressed: () { Navigator.of(context).pop(); },
-                child: const Text('Treasury department'),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              ElevatedButton(
-                onPressed: () { Navigator.of(context).pop(); },
-                child: const Text('State department'),
-              ),
-            ]
-          )
-        ]
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context, null);
+            },
+            child: const Text('Load grade'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context, null);
+            },
+            child: const  Text('Cancle'),
+          ),
+        ],
+        content: Container(
+          width: double.minPositive,
+          child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) {
+                return ListView.builder(
+                  itemCount: 10,
+
+                );
+              }
+          ),
+        ),
       );
     });
   }
 
    _templateGrade(elementCount){
-    return Row(
-      children: [
-        const Text("Grades "),
-        // DropdownButton(
-        //     items: ['1','2'],
-        //     onChanged: onChanged)
-      ],
+    return Card(
+      child: ,
+      // children: [
+      //   Text("Grades $elementCount"),
+      //   // DropdownButton(
+      //   //     items: ['1','2'],
+      //   //     onChanged: onChanged)
+      // ],
     );
   }
 }

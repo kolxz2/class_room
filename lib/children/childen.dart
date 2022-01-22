@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Stud{
   static const int SIZE = 10;
   final List<int> _grades = [SIZE];
@@ -8,6 +10,8 @@ class Stud{
    _name =  name.isNotEmpty ? name : "NULL";
   }
 
+  @visibleForTesting
+  set setName(String name) => _name = name;
 
   set setGrades(List<int> grade){
     if (SIZE - _gradesCount >= grade.length){
