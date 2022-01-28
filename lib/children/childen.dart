@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class Stud{
   static const int SIZE = 10;
-  final List<int> _grades = [SIZE];
+  final List<int> _grades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   late String _name;
-  int _gradesCount = 0;
+  int _gradesCount = 10;
 
   Stud(String name){
    _name =  name.isNotEmpty ? name : "NULL";

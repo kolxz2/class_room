@@ -13,8 +13,10 @@ class Home extends StatefulWidget {
 // меняться в течение жизни виджета.
 class _HomeState extends State<Home> {
 
+
   late String _userTodo;
   List<Stud> todoList = [Stud("name")];
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,7 @@ class _HomeState extends State<Home> {
                                   color: Colors.red,
                                 ),
                                 onPressed: (){
-                                  _editGrades(context);
+                                  _editGrades(context, index);
                                 }
                             ),
                           ),
@@ -143,60 +145,73 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void _editGrades(BuildContext context){
+  void _editGrades(BuildContext context, index_todo){
 
-    int elementCount = 1;
-    List<Widget> _gradesView = [_templateGrade(elementCount)];
+    String selected = "-";
+    List<String> _gradesView = ["-", "2", "3", "4", "5"];
+    List<int> _currentGrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-    showDialog(context: context, builder: (BuildContext context){
-      return AlertDialog(
-        title: const Text("Edit student info"),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              ++elementCount;
-              _gradesView.add(_templateGrade(elementCount));
-            },
-            child: const Text('Add grade'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context, null);
-            },
-            child: const Text('Load grade'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context, null);
-            },
-            child: const  Text('Cancle'),
-          ),
-        ],
-        content: Container(
-          width: double.minPositive,
-          child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) {
-                return ListView.builder(
+
+    showDialog(context: context, builder: (BuildContext context) =>
+        StatefulBuilder(
+          builder: (context, setState) => AlertDialog(
+            title: const Text("Edit student info"),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context, null);
+                },
+                child: const Text('Load grade'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context, null);
+                },
+                child: const  Text('Cancle'),
+              ),
+            ],
+            content: SizedBox(
+              width: double.minPositive,
+              child: ListView.builder(
                   itemCount: 10,
-
-                );
-              }
-          ),
-        ),
-      );
-    });
-  }
-
-   _templateGrade(elementCount){
-    return Card(
-      child: ,
-      // children: [
-      //   Text("Grades $elementCount"),
-      //   // DropdownButton(
-      //   //     items: ['1','2'],
-      //   //     onChanged: onChanged)
-      // ],
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                        child: ListTile(
+                            enabled: true,
+                            title: Text("Grade № $index"),
+                            trailing: DropdownButton<String>(
+                              value: todoList[index_todo].getGrade(index).toString() == "0"? "-": _currentGrades[index].toString(),
+                              // _currentGrades[index].toString() == "0"
+                              //     ? "-": _currentGrades[index].toString(),
+                              items: _gradesView.map((item) => DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(item),
+                              )).toList(),
+                              onChanged: (item) => setState(() {
+                                selected = item!;
+                                if (item == "-"){
+                                  _currentGrades[index] = 0;
+                                } else {
+                                  _currentGrades[index] = int.parse(selected.toString());
+                                  todoList[index_todo].setGradeByIndex(_currentGrades[index], index);
+                                }
+                                print(todoList[index_todo].getGrades());
+                              }),
+                            )
+                        ));
+                  }
+              ),
+            ),
+          )
+        )
     );
   }
+
+  //  _templateGrade(elementCount){
+  //   return Card(
+  //     child: ListTile(
+  //       title: Text("Grade № $elementCount"),
+  //     )
+  //   );
+  // }
 }
