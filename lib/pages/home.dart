@@ -53,48 +53,55 @@ class _HomeState extends State<Home> {
                           Align(
                             alignment: const Alignment(0.8, 0.5),
                             child:
-                              IconButton(
-                              icon: const Icon(
-                                Icons.info,
-                                color: Colors.pink,
-                              ),
-                              onPressed: (){
-                                setState(() {
-                                todoList.removeAt(index);
-                                });
-                              }
+                              Expanded(
+                                flex: 1,
+                                child: IconButton(
+                                icon: const Icon(
+                                  Icons.info,
+                                  color: Colors.pink,
+                                ),
+                                onPressed: (){
+                                  _showInfo(context, index);
+                                }
+                                ),
                               ),
                           ),
 
                           Align(
                             alignment: const Alignment(0.9, 0.5),
                             child:
-                            IconButton(
-                                icon: const Icon(
-                                  Icons.edit,
-                                  color: Colors.red,
-                                ),
-                                onPressed: (){
-                                  print("-------------------------");
-                                  print(todoList[index].getGrades());
-                                  print("-------------------------");
-                                  _editGrades(context, index);
-                                }
+                            Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.red,
+                                  ),
+                                  onPressed: (){
+                                    print("-------------------------");
+                                    print(todoList[index].getGrades());
+                                    print("-------------------------");
+                                    _editGrades(context, index);
+                                  }
+                              ),
                             ),
                           ),
                           Align(
                             alignment: const Alignment(1, 0.5),
                             child:
-                            IconButton(
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.deepPurpleAccent,
-                                ),
-                                onPressed: (){
-                                  setState(() {
-                                    todoList.removeAt(index);
-                                  });
-                                }
+                            Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.deepPurpleAccent,
+                                  ),
+                                  onPressed: (){
+                                    setState(() {
+                                      todoList.removeAt(index);
+                                    });
+                                  }
+                              ),
                             ),
                           ),
                         ]
@@ -148,6 +155,41 @@ class _HomeState extends State<Home> {
     );
   }
 
+  _showInfo(context, index){
+    showDialog(context: context, builder: (BuildContext context) =>
+        StatefulBuilder(
+            builder: (context, setState) => AlertDialog(
+                actions: <Widget>[
+                  TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, null);
+                    },
+                      child: const Text('Cansel'),
+                    ),],
+              title: Text("Info about ${todoList[index].getName()}"),
+              content: Text(_forInfo(index) + "\n" + "Student average grade:" +
+              todoList[index].getAverage().toString()),
+            )
+        )
+    );
+  }
+
+  _forInfo(index){
+    int count = 1;
+    List<int> currentGrade = [];
+    for(int i in todoList[index].getGrades()){
+      if (i > 0){
+        currentGrade.add(i);
+      }
+    }
+    String stringGrades = "";
+    for (int i in currentGrade ){
+       stringGrades += "Grade № $count: ${i.toString()} \n";
+    }
+    return stringGrades;
+  }
+
+
   void _editGrades(BuildContext context, index_todo){
 
     String selected = "-";
@@ -164,13 +206,7 @@ class _HomeState extends State<Home> {
                 onPressed: () {
                   Navigator.pop(context, null);
                 },
-                child: const Text('Load grade'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context, null);
-                },
-                child: const  Text('Cancle'),
+                child: const Text('Cansel'),
               ),
             ],
             content: SizedBox(

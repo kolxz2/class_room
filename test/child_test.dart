@@ -21,7 +21,7 @@ void main(){
     name.setGrades = grade;
     final result = name.getGrades();
 
-    expect(result, [2, 2, 5]);
+    expect(result, [2, 5, 0, 5, 0, 0, 0, 0, 0, 0]);
   });
 
   test("test_setGradesByIndex", (){
