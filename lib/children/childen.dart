@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Stud{
   static const int SIZE = 10;
-  final List<int> _grades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  final List<int> _grades = [0, 0, 0, 5, 0, 0, 0, 0, 0, 0];
   late String _name;
   int _gradesCount = 10;
 
@@ -14,11 +14,12 @@ class Stud{
   set setName(String name) => _name = name;
 
   set setGrades(List<int> grade){
+    int index = 0;
     if (SIZE - _gradesCount >= grade.length){
       for(int i in grade) {
         if (i > 1 && i < 6) {
-          _grades.add(i);
-          _gradesCount++;
+          _grades[index];
+          index++;
         } else {
           return;
         }

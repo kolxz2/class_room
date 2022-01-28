@@ -75,6 +75,9 @@ class _HomeState extends State<Home> {
                                   color: Colors.red,
                                 ),
                                 onPressed: (){
+                                  print("-------------------------");
+                                  print(todoList[index].getGrades());
+                                  print("-------------------------");
                                   _editGrades(context, index);
                                 }
                             ),
@@ -180,7 +183,7 @@ class _HomeState extends State<Home> {
                             enabled: true,
                             title: Text("Grade № $index"),
                             trailing: DropdownButton<String>(
-                              value: todoList[index_todo].getGrade(index).toString() == "0"? "-": _currentGrades[index].toString(),
+                              value:  current(index_todo, index),
                               // _currentGrades[index].toString() == "0"
                               //     ? "-": _currentGrades[index].toString(),
                               items: _gradesView.map((item) => DropdownMenuItem<String>(
@@ -205,6 +208,29 @@ class _HomeState extends State<Home> {
           )
         )
     );
+  }
+
+  String current(index_todo, index){
+    String curr = todoList[index_todo].getGrade(index).toString();
+    switch (curr) {
+      case "5":
+        curr = "5";
+        break;
+      case "4":
+        curr = "4";
+        break;
+      case "3":
+        curr = "3";
+        break;
+      case "2":
+        curr = "2";
+        break;
+      case "0":
+        curr = "-";
+        break;
+
+    }
+    return curr;
   }
 
   //  _templateGrade(elementCount){

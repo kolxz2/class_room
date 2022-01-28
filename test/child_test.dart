@@ -28,10 +28,10 @@ void main(){
     List<int> grade = [1, 2, 5];
     name.setGradeByIndex(5, 1);
 
-    final result = name.getGrade(1);
+    final result = name.getGrade(1).toString();
 
 
-    expect(result, 5);
+    expect(result, "5");
   });
 
 }
