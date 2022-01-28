@@ -5,5 +5,5 @@ void main() => runApp(MaterialApp(
   theme: ThemeData(
     primaryColor: Colors.deepPurpleAccent,
   ),
-  home: Home(),
+  home: const Home(),
 ));

@@ -48,61 +48,37 @@ class _HomeState extends State<Home> {
                           fontSize: 20
                         ),
                       ),
-                      title: Stack(
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          Align(
-                            alignment: const Alignment(0.8, 0.5),
-                            child:
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                icon: const Icon(
-                                  Icons.info,
-                                  color: Colors.pink,
-                                ),
-                                onPressed: (){
-                                  _showInfo(context, index);
-                                }
-                                ),
-                              ),
-                          ),
-
-                          Align(
-                            alignment: const Alignment(0.9, 0.5),
-                            child:
-                            Expanded(
-                              flex: 1,
-                              child: IconButton(
-                                  icon: const Icon(
-                                    Icons.edit,
-                                    color: Colors.red,
-                                  ),
-                                  onPressed: (){
-                                    print("-------------------------");
-                                    print(todoList[index].getGrades());
-                                    print("-------------------------");
-                                    _editGrades(context, index);
-                                  }
-                              ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.info,
+                              color: Colors.pink,
                             ),
+                            onPressed: (){
+                              _showInfo(context, index);
+                            },
                           ),
-                          Align(
-                            alignment: const Alignment(1, 0.5),
-                            child:
-                            Expanded(
-                              flex: 1,
-                              child: IconButton(
-                                  icon: const Icon(
-                                    Icons.delete,
-                                    color: Colors.deepPurpleAccent,
-                                  ),
-                                  onPressed: (){
-                                    setState(() {
-                                      todoList.removeAt(index);
-                                    });
-                                  }
-                              ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Colors.red,
                             ),
+                            onPressed: (){
+                              _editGrades(context, index);
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onPressed: (){
+                              setState(() {
+                                todoList.removeAt(index);
+                              });
+                            }
                           ),
                         ]
                       )
@@ -185,12 +161,13 @@ class _HomeState extends State<Home> {
     String stringGrades = "";
     for (int i in currentGrade ){
        stringGrades += "Grade № $count: ${i.toString()} \n";
+       count++;
     }
     return stringGrades;
   }
 
 
-  void _editGrades(BuildContext context, index_todo){
+  void _editGrades(BuildContext context, indexTodo){
 
     String selected = "-";
     List<String> _gradesView = ["-", "2", "3", "4", "5"];
@@ -219,7 +196,7 @@ class _HomeState extends State<Home> {
                             enabled: true,
                             title: Text("Grade № $index"),
                             trailing: DropdownButton<String>(
-                              value:  current(index_todo, index),
+                              value:  current(indexTodo, index),
                               // _currentGrades[index].toString() == "0"
                               //     ? "-": _currentGrades[index].toString(),
                               items: _gradesView.map((item) => DropdownMenuItem<String>(
@@ -232,9 +209,8 @@ class _HomeState extends State<Home> {
                                   _currentGrades[index] = 0;
                                 } else {
                                   _currentGrades[index] = int.parse(selected.toString());
-                                  todoList[index_todo].setGradeByIndex(_currentGrades[index], index);
+                                  todoList[indexTodo].setGradeByIndex(_currentGrades[index], index);
                                 }
-                                print(todoList[index_todo].getGrades());
                               }),
                             )
                         ));
@@ -246,8 +222,8 @@ class _HomeState extends State<Home> {
     );
   }
 
-  String current(index_todo, index){
-    String curr = todoList[index_todo].getGrade(index).toString();
+  String current(indexTodo, index){
+    String curr = todoList[indexTodo].getGrade(index).toString();
     switch (curr) {
       case "5":
         curr = "5";

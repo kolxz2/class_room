@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Stud{
-  //static const int SIZE = 10;
-  final List<int> _grades = [0, 0, 0, 5, 0, 0, 0, 0, 0, 0];
+  final List<int> _grades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   late String _name;
-  int _gradesCount = 10;
+  static const int _gradesCount = 10;
 
   Stud(String name){
-   _name =  name.isNotEmpty ? name : "NULL";
+    _name =  name.isNotEmpty ? name : "NULL";
   }
 
   @visibleForTesting
@@ -17,8 +16,8 @@ class Stud{
     int index = 0;
     if (grade.length <= _gradesCount){
       for(int i in grade) {
-          _grades[index] = i;
-          index++;
+        _grades[index] = i;
+        index++;
       }
     } else {
       return;
@@ -42,10 +41,14 @@ class Stud{
   double getAverage (){
     if (_gradesCount != 0) {
       double sum = 0;
+      int count = 0;
       for(int i in _grades){
-        sum += i;
+        if (i > 0) {
+          sum += i;
+          count++;
+        }
       }
-      return sum / _gradesCount;
+      return sum / count;
     }
     return 0.0;
   }
