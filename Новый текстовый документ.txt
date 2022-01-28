@@ -1,0 +1,38 @@
+
+
+
+
+
+
+
+
+
+
+
+  
+
+void main(){
+    final name = Stud("name");
+  
+  test("description", (){
+    List<int> grade = [1, 2, 5];
+    name.setName = "Kolya";
+    final result = name.getName();
+
+
+    expect(result, "Kolya");
+    
+    
+  });
+  
+  test("test_setGrades", (){
+    List<int> grade = [1, 2, 5];
+    name.setGradeByIndex(5, 1)
+    
+    final result = name.getGrade(1);
+
+
+    expect(result, 5);
+  });
+  
+}
