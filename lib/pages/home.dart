@@ -171,7 +171,7 @@ class _HomeState extends State<Home> {
 
     String selected = "-";
     List<String> _gradesView = ["-", "2", "3", "4", "5"];
-    List<int> _currentGrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    List _currentGrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
     showDialog(context: context, builder: (BuildContext context) =>
@@ -205,11 +205,14 @@ class _HomeState extends State<Home> {
                               )).toList(),
                               onChanged: (item) => setState(() {
                                 selected = item!;
-                                if (item == "-"){
-                                  _currentGrades[index] = 0;
-                                } else {
-                                  _currentGrades[index] = int.parse(selected.toString());
+                                if (selected == "-"){
+                                  _currentGrades[index] = int.parse("0");
                                   todoList[indexTodo].setGradeByIndex(_currentGrades[index], index);
+                                  print(todoList[indexTodo].getGrades());
+                                } else {
+                                  _currentGrades[index] = int.parse(selected);
+                                  todoList[indexTodo].setGradeByIndex(_currentGrades[index], index);
+                                  print(todoList[indexTodo].getGrades());
                                 }
                               }),
                             )

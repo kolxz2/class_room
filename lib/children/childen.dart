@@ -26,7 +26,7 @@ class Stud{
 
   bool setGradeByIndex(int grade, int index){
     if (index > -1 && index <= _gradesCount) {
-      if (grade > 1 && grade < 6) {
+      if (grade > 1 && grade < 6 || grade == 0) {
         _grades[index] = grade;
         return true;
       }
