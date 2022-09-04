@@ -208,11 +208,11 @@ class _HomeState extends State<Home> {
                                 if (selected == "-"){
                                   _currentGrades[index] = int.parse("0");
                                   todoList[indexTodo].setGradeByIndex(_currentGrades[index], index);
-                                  print(todoList[indexTodo].getGrades());
+                                  // print(todoList[indexTodo].getGrades());
                                 } else {
                                   _currentGrades[index] = int.parse(selected);
                                   todoList[indexTodo].setGradeByIndex(_currentGrades[index], index);
-                                  print(todoList[indexTodo].getGrades());
+                                  // print(todoList[indexTodo].getGrades());
                                 }
                               }),
                             )
@@ -243,7 +243,6 @@ class _HomeState extends State<Home> {
       case "0":
         curr = "-";
         break;
-
     }
     return curr;
   }
